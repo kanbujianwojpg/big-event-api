@@ -14,7 +14,7 @@ function operateDb(sql, params = null) {
       //端口
       port: '3306',
       //数据名称
-      database: 'bigevent',
+      database: 'big-event-api',
       //账号
       user: 'root',
       //账号密码
