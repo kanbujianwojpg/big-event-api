@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 //配置后端cors跨域
 app.use(cors());
 
-//添加登录路由模块
+//添加登录路由模块(路由中间件,只有访问到/api接口才会使用该中间件)
 app.use('/api', loginRouter);
 
 app.listen(8888, () => {
