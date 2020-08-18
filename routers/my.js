@@ -57,4 +57,45 @@ router.post('/updatepwd', async (req, res) => {
   }
 });
 
+//更新用户头像
+router.post('/update/avatar', async (req, res) => {
+  //1.获取请求参数
+  let id = req.user.id;
+  let avatar = req.body.avatar;
+  //2.操作数据库进行更新
+  let sql = 'update user set user_pic = ? where id = ?';
+  let ret = await db.operateDb(sql, [avatar, id]);
+  if (ret && ret.affectedRows > 0) {
+    res.json({
+      status: 0,
+      message: '更新头像成功',
+    });
+  } else {
+    res.json({
+      status: 1,
+      message: '更新头像失败',
+    });
+  }
+});
+
+//更新用户信息
+router.post('/userinfo', async (req, res) => {
+  //1.获取请求参数
+  let params = req.body;
+  //操作数据库进行更新
+  let sql = 'update user set ? where id = ?';
+  let ret = await db.operateDb(sql, [{ nickname: params.nickname, email: params.email }, params.id]);
+  if (ret && ret.affectedRows > 0) {
+    res.json({
+      status: 0,
+      message: '更新用户信息成功',
+    });
+  } else {
+    res.json({
+      status: 1,
+      message: '更新用户信息失败',
+    });
+  }
+});
+
 module.exports = router;
