@@ -7,6 +7,7 @@ const jwt = require('express-jwt');
 //导入路由模块
 const loginRouter = require(path.join(__dirname, 'routers', 'login.js'));
 const myRouter = require(path.join(__dirname, 'routers', 'my.js'));
+const cateRouter = require(path.join(__dirname, 'routers', 'cate.js'));
 const db = require(path.join(__dirname, 'common', 'db.js'));
 
 // 处理客户端请求post参数
@@ -25,6 +26,7 @@ app.use(jwt({ secret: 'bigEvent' }).unless({ path: /^\/api/ }));
 //添加登录路由模块(路由中间件,只有访问到/api接口才会使用该中间件)
 app.use('/api', loginRouter);
 app.use('/my', myRouter);
+app.use('/my', cateRouter);
 
 app.listen(8888, () => {
   console.log('running...');

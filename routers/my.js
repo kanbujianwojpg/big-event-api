@@ -30,7 +30,6 @@ router.get('/userinfo', async (req, res) => {
     });
   }
 });
-
 //修改密码
 router.post('/updatepwd', async (req, res) => {
   //获取请求参数
