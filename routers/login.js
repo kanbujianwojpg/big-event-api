@@ -21,7 +21,6 @@ router.get('/login', async (req, res) => {
   //3.查询数据库(根据用户名和加密后的密码)
   let sql = 'select id from user where username = ? and password = ?';
   let ret = await db.operateDb(sql, [params.username, params.password]);
-  console.log(ret);
   if (ret && ret.length > 0) {
     //登录成功,生成该用户的token信息(token中可以携带数据:用户名和id)
     let token = jwt.sign(
@@ -30,7 +29,7 @@ router.get('/login', async (req, res) => {
         username: params.username,
         id: ret[0].id,
       },
-      'secret', //加密额外的字符,俗称加盐
+      'bigEvent', //加密额外的字符,俗称加盐
       { expiresIn: 60 * 60 } //token有效期
     );
     res.json({
