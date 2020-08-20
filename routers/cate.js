@@ -11,7 +11,7 @@ const db = require(path.join(__dirname, '../common/db.js'));
 //查询分类列表数据
 router.get('/article/cates', async (req, res) => {
   //1.操作数据库
-  let sql = 'select * from cate';
+  let sql = 'select * from cate where is_delete = 1';
   let ret = await db.operateDb(sql);
   if (ret && ret.length > 0) {
     res.json({
@@ -53,7 +53,7 @@ router.post('/article/addcates', async (req, res) => {
 router.get('/article/cates/:id', async (req, res) => {
   let id = req.params.id;
   //1.操作数据库
-  let sql = 'select * from cate where id = ?';
+  let sql = 'select * from cate where id = ? and is_delete = 1';
   let ret = await db.operateDb(sql, id);
   if (ret && ret.length > 0) {
     res.json({
@@ -75,7 +75,7 @@ router.get('/article/deletecate/:id', async (req, res) => {
   //1.获取请求参数
   let id = req.params.id;
   //2.操作数据库
-  let sql = 'delete from cate where id = ?';
+  let sql = 'update cate set is_delete = 2 where id = ?';
   let ret = await db.operateDb(sql, id);
   if (ret && ret.affectedRows > 0) {
     res.json({
