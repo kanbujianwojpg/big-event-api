@@ -49,6 +49,27 @@ router.post('/article/addcates', async (req, res) => {
   }
 });
 
+//根据 Id 获取文章分类数据
+router.get('/article/cates/:id', async (req, res) => {
+  let id = req.params.id;
+  //1.操作数据库
+  let sql = 'select * from cate where id = ?';
+  let ret = await db.operateDb(sql, id);
+  if (ret && ret.length > 0) {
+    res.json({
+      //更新成功
+      status: 0,
+      message: '获取文章分类数据成功',
+      data: ret,
+    });
+  } else {
+    res.json({
+      status: 1,
+      message: '获取文章分类数据失败',
+    });
+  }
+});
+
 //删除图书分类
 router.get('/article/deletecate/:id', async (req, res) => {
   //1.获取请求参数
