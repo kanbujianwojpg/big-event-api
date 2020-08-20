@@ -8,6 +8,7 @@ const jwt = require('express-jwt');
 const loginRouter = require(path.join(__dirname, 'routers', 'login.js'));
 const myRouter = require(path.join(__dirname, 'routers', 'my.js'));
 const cateRouter = require(path.join(__dirname, 'routers', 'cate.js'));
+const articleRouter = require(path.join(__dirname, 'routers', 'article.js'));
 const db = require(path.join(__dirname, 'common', 'db.js'));
 
 // 处理客户端请求post参数
@@ -27,6 +28,7 @@ app.use(jwt({ secret: 'bigEvent' }).unless({ path: /^\/api/ }));
 app.use('/api', loginRouter);
 app.use('/my', myRouter);
 app.use('/my', cateRouter);
+app.use('/my', articleRouter);
 
 app.listen(8888, () => {
   console.log('running...');
